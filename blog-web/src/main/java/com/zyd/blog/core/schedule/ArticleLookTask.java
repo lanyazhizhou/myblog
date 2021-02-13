@@ -1,5 +1,6 @@
 package com.zyd.blog.core.schedule;
 
+import cn.hutool.core.thread.ThreadFactoryBuilder;
 import com.zyd.blog.business.entity.ArticleLook;
 import com.zyd.blog.business.service.BizArticleLookService;
 import com.zyd.blog.business.service.BizArticleService;
@@ -7,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.*;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -24,11 +22,21 @@ import java.util.concurrent.BlockingQueue;
 @RequiredArgsConstructor
 public class ArticleLookTask {
 
+    ExecutorService executorService = createExecutor();
+
     private final BizArticleService bizArticleService;
 
     private final BizArticleLookService articleLookService;
 
-    private BlockingQueue<ArticleLook> queue = new ArrayBlockingQueue<>(1024);
+    //    private BlockingQueue<ArticleLook> queue = new ArrayBlockingQueue<>(1024);
+    private static ExecutorService createExecutor() {
+        ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().
+                setNamePrefix("article-look").setDaemon(true).build();
+
+        return new ThreadPoolExecutor(1, 2, 10L, TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(1024), namedThreadFactory,
+                new ThreadPoolExecutor.AbortPolicy());
+    }
 
     /**
      * 保存文章的浏览记录，先进先出
@@ -37,33 +45,40 @@ public class ArticleLookTask {
         if (null == articleLook) {
             return;
         }
-        queue.offer(articleLook);
+//        queue.offer(articleLook);
+        executorService.submit(() -> save(articleLook));
     }
 
-    public void save() {
-        List<ArticleLook> bufferList = new ArrayList<>();
-        while (true) {
-            try {
-                bufferList.add(queue.take());
-                for (ArticleLook articleLook : bufferList) {
-                    if (!bizArticleService.isExist(articleLook.getArticleId())) {
-                        log.warn("{}-该文章不存在！", articleLook.getArticleId());
-                        continue;
-                    }
-                    articleLookService.insert(articleLook);
-                }
-            } catch (InterruptedException e) {
-                log.error("保存文章浏览记录失败--->[{}]", e.getMessage());
-                // 防止缓冲队列填充数据出现异常时不断刷屏
-                try {
-                    Thread.sleep(1000);
-                } catch (Exception err) {
-                    log.error(err.getMessage());
-                }
-            } finally {
-                bufferList.clear();
-            }
+    //    public void save() {
+//        List<ArticleLook> bufferList = new ArrayList<>();
+//        while (true) {
+//            try {
+//                bufferList.add(queue.take());
+//                for (ArticleLook articleLook : bufferList) {
+//                    if (!bizArticleService.isExist(articleLook.getArticleId())) {
+//                        log.warn("{}-该文章不存在！", articleLook.getArticleId());
+//                        continue;
+//                    }
+//                    articleLookService.insert(articleLook);
+//                }
+//            } catch (InterruptedException e) {
+//                log.error("保存文章浏览记录失败--->[{}]", e.getMessage());
+//                // 防止缓冲队列填充数据出现异常时不断刷屏
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (Exception err) {
+//                    log.error(err.getMessage());
+//                }
+//            } finally {
+//                bufferList.clear();
+//            }
+//        }
+    private void save(ArticleLook articleLook) {
+        if (!bizArticleService.isExist(articleLook.getArticleId())) {
+            log.warn("{}-该文章不存在！", articleLook.getArticleId());
+            return;
         }
+        articleLookService.insert(articleLook);
     }
 
 }
