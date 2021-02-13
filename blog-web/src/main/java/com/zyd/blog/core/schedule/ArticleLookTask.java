@@ -33,9 +33,13 @@ public class ArticleLookTask {
         ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().
                 setNamePrefix("article-look").setDaemon(true).build();
 
-        return new ThreadPoolExecutor(1, 2, 10L, TimeUnit.SECONDS,
+//        return new ThreadPoolExecutor(1, 2, 10L, TimeUnit.SECONDS,
+        ThreadPoolExecutor executor= new ThreadPoolExecutor(1, 2, 100L, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<>(1024), namedThreadFactory,
-                new ThreadPoolExecutor.AbortPolicy());
+//                new ThreadPoolExecutor.AbortPolicy());
+                new ThreadPoolExecutor.DiscardPolicy());
+        executor.allowCoreThreadTimeOut(true);
+        return executor;
     }
 
     /**
