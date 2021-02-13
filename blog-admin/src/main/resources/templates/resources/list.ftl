@@ -107,6 +107,7 @@
     <script>
         $(function () {
             $.table.init({
+                reloadAll:true,
                 modalName: "资源",
                 columns: [{
                     field: 'selectItem',

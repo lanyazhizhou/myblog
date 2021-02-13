@@ -56,6 +56,12 @@ $.extend({
          */
         refresh: function (tableOptions) {
             var initOptions = $.extend({}, this._default_config, tableOptions);
+
+            if (initOptions.reloadAll) {
+                window.location.reload();
+                return;
+            }
+
             // $(initOptions.containerBox).data('bootstrap.tree.table').load();
             $(initOptions.containerBox).bootstrapTreeTable('refresh');
         },
@@ -90,7 +96,8 @@ $.extend({
                             success: function (json) {
                                 $.alert.ajaxSuccess(json);
                                 $("#addOrUpdateModal").modal('hide');
-                                $.table.refresh();
+                                // $.table.refresh();
+                                $.table.refresh(initOptions);
                             },
                             error: $.alert.ajaxError
                         });
@@ -140,7 +147,8 @@ $.extend({
                         data: {'ids': ids},
                         success: function (json) {
                             $.alert.ajaxSuccess(json);
-                            $.table.refresh();
+                            // $.table.refresh();
+                            $.table.refresh(initOptions);
                         },
                         error: $.alert.ajaxError
                     }, function () {

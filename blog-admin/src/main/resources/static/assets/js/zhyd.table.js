@@ -205,6 +205,10 @@ Table.prototype = {
     },
     refresh: function () {
         var options = this.options;
+        if (options.reloadAll) {
+            window.location.reload();
+            return;
+        }
         $(options.tableBox).bootstrapTable('refresh', {url: options.url});
     },
     getSelectedIds: function () {

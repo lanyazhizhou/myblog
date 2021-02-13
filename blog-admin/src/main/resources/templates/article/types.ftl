@@ -96,6 +96,7 @@
 
         $(function () {
             $.table.init({
+                reloadAll: true,
                 modalName: "分类",
                 columns: [{
                     field: 'selectItem',

@@ -95,6 +95,11 @@ public class BizTypeServiceImpl implements BizTypeService {
         if (!CollectionUtils.isEmpty(articles)) {
             throw new ZhydException("当前分类下存在文章信息，禁止删除！");
         }
+
+        boolean b = listAll().stream().anyMatch(a -> primaryKey.equals(a.getParentId()));
+        if (b) {
+            throw new ZhydException("当前分类下存在子分类，禁止删除");
+        }
         return bizTypeMapper.deleteByPrimaryKey(primaryKey) > 0;
     }
 
