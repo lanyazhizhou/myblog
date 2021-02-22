@@ -17,7 +17,7 @@ spring:
         # 指定SMTP server的用户名.
         username: 2835749050@qq.com
         # 指定SMTP server登录密码:
-        password: cxpgpoqhredwdfbc
+        password: 111111111
         # 指定是否在启动时测试邮件服务器连接，默认为false
         test-connection: false
         properties:
