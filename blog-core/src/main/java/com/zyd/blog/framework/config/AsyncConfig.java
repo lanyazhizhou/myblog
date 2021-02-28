@@ -26,7 +26,7 @@ import java.util.concurrent.Future;
  * @since 1.0
  */
 @Slf4j
-@Configuration
+//@Configuration
 @EnableAsync
 public class AsyncConfig implements AsyncConfigurer {
 
