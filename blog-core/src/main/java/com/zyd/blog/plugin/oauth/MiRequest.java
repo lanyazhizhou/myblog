@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
+ * @author lanyazhizhou@gmail.com
  * @version 1.0
- * @website https://docs.zhyd.me
+ * @website https://lanyazhizhou.com
  * @date 2019/8/7 21:37
  * @since 1.8
  */

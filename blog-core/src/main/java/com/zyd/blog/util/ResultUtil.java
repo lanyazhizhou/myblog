@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * 接口返回工具类，支持ModelAndView、ResponseVO、PageResult
  *
- * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
+ * @author lanyazhizhou@gmail.com
  * @version 1.0
  * @website https://docs.zhyd.me
  * @date 2018/4/18 11:48

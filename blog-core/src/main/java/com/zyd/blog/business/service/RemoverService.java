@@ -5,7 +5,7 @@ import me.zhyd.hunter.config.HunterConfig;
 import java.io.PrintWriter;
 
 /**
- * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
+ * @author lanyazhizhou@gmail.com
  * @version 1.0
  * @website https://docs.zhyd.me
  * @date 2018/8/21 15:35

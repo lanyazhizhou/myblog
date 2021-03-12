@@ -11,9 +11,9 @@ import java.io.*;
 /**
  * 操作图片工具类
  *
- * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
+ * @author lanyazhizhou@gmail.com
  * @version 1.0
- * @website https://docs.zhyd.me
+ * @website https://lanyazhizhou.com
  * @date 2018/4/18 11:48
  * @since 1.0
  */

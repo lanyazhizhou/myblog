@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * 用于监控freemarker自定义标签中共享变量是否发生变化，发生变化时实时更新到内存中
  *
- * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
+ * @author lanyazhizhou@gmail.com
  * @version 2.0
  * @date 2018/5/17 17:06
  */

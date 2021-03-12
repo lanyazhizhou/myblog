@@ -3,7 +3,7 @@ package com.zyd.blog.business.enums;
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://docs.zhyd.me
+ * @website https://lanyazhizhou.com
  * @date 2019/2/12 9:37
  * @since 1.8
  */
@@ -188,7 +188,7 @@ public enum ConfigKeyEnum {
     INSTALLDATE("installdate"),
 
     /**
-     * 当切换浏览器tab时，在原tab上的标题。比如https://docs.zhyd.me上的“麻溜儿回来~~~”
+     * 当切换浏览器tab时，在原tab上的标题。比如https://lanyazhizhou.com上的“麻溜儿回来~~~”
      */
     DYNAMIC_TITLE("dynamicTitle"),
     ;
